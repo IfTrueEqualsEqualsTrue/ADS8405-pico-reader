@@ -7,7 +7,7 @@ pico_enable_stdio_uart(pico-firmware 0)
 pico_enable_stdio_usb(pico-firmware 1)
 
 target_link_libraries(pico-firmware
-        pico_stdlib)
+        pico_stdlib     common)
 
 target_include_directories(pico-firmware PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}

@@ -35,3 +35,5 @@ pico_sdk_init()
 
 add_subdirectory(src/pico_spi_slave)
 add_subdirectory(src/adc_read_usb)
+add_subdirectory(src/common)
+

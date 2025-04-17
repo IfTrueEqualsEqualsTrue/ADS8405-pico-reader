@@ -1,6 +1,7 @@
 #include <stdio.h> // <-- Add this line
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include "gpio_utils.h"
 #include <string.h>
 
 
