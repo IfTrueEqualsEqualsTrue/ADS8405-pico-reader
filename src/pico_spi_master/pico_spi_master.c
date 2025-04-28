@@ -14,20 +14,6 @@ volatile bool buffer1_ready = false;
 
 volatile int current_buffer = 0;
 
-#define SPI_PORT spi0
-#define PIN_MISO 16
-#define PIN_CS   17
-#define PIN_SCK  18
-#define PIN_MOSI 19
-
-void spi_init_master() {
-    spi_init(SPI_PORT, 1000 * 1000); // 1MHz SPI
-    gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
-    gpio_set_function(PIN_CS, GPIO_FUNC_SPI);
-    gpio_set_function(PIN_SCK, GPIO_FUNC_SPI);
-    gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
-}
-
 void send_buffer(uint16_t* buffer) {
     spi_write_blocking(SPI_PORT, (uint8_t*)buffer, BUFFER_SIZE * sizeof(uint16_t));
 }
@@ -73,12 +59,9 @@ void acquisition_loop(void) {
 
 int main() {
     stdio_init_all();
-
     init_data_bus();
     init_adc();
     spi_init_master();
-
+    
     acquisition_loop();
-
-    return 0;
 }
