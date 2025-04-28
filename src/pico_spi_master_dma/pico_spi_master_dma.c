@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 16384
 
 volatile uint16_t buffer0[BUFFER_SIZE];
 volatile uint16_t buffer1[BUFFER_SIZE];
@@ -36,7 +36,7 @@ void acquisition_loop(void) {
     while (true) {
         gpio_put(CS_PIN, 0);
         gpio_put(CONVST_PIN, 0);
-        sleep_us(READ_DELAY_US);
+        sleep_us(READ_DELAY_US);  // TODO : use timer (pwm) to achieve exactly desired sampling rate
         gpio_put(CONVST_PIN, 1);
 
         while (gpio_get(BUSY_PIN));
