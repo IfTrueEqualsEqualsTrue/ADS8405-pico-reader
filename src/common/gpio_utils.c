@@ -1,6 +1,7 @@
 #include "gpio_utils.h"
 #include "hardware/spi.h"
 #include "hardware/dma.h"
+#include "hardware/structs/sio.h"
 
 int dma_chan;
 dma_channel_config dma_cfg;
@@ -13,22 +14,19 @@ void init_data_bus(void) {
 }
 
 void init_adc(void) {
-    gpio_init(CS_PIN); gpio_set_dir(CS_PIN, GPIO_OUT);
+    gpio_init(ADC_CS_PIN); gpio_set_dir(ADC_CS_PIN, GPIO_OUT);
     gpio_init(RD_PIN); gpio_set_dir(RD_PIN, GPIO_OUT);
     gpio_init(CONVST_PIN); gpio_set_dir(CONVST_PIN, GPIO_OUT);
     gpio_init(BUSY_PIN); gpio_set_dir(BUSY_PIN, GPIO_IN);
 }
 
 uint16_t read_data_bus(void) {
-    uint16_t value = 0;
-    for (int i = DB_MIN; i <= DB_MAX; i++) {
-        value |= (gpio_get(i) << i);
-    }
-    return value;
+    // Read all GPIOs, shift to align DB0 at bit 0, mask to keep DB0..DB15 only
+    return (sio_hw->gpio_in >> DB_MIN) & 0xFFFF;
 }
 
 float get_voltage(void) {
-    gpio_put(CS_PIN, 0);
+    gpio_put(ADC_CS_PIN, 0);
     gpio_put(CONVST_PIN, 0);
     sleep_us(READ_DELAY_US);
     gpio_put(CONVST_PIN, 1);
@@ -38,7 +36,7 @@ float get_voltage(void) {
     gpio_put(RD_PIN, 0);
     uint16_t value = read_data_bus();
     gpio_put(RD_PIN, 1);
-    gpio_put(CS_PIN, 1);
+    gpio_put(ADC_CS_PIN, 1);
 
     float voltage = (value / 65535.0f) * 4.096f;
     return voltage;

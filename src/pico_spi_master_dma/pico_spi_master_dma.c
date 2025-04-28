@@ -34,7 +34,7 @@ void acquisition_loop(void) {
     int sample_index = 0;
 
     while (true) {
-        gpio_put(CS_PIN, 0);
+        gpio_put(ADC_CS_PIN, 0);
         gpio_put(CONVST_PIN, 0);
         sleep_us(READ_DELAY_US);  // TODO : use timer (pwm) to achieve exactly desired sampling rate
         gpio_put(CONVST_PIN, 1);
@@ -44,7 +44,7 @@ void acquisition_loop(void) {
         gpio_put(RD_PIN, 0);
         uint16_t value = read_data_bus();
         gpio_put(RD_PIN, 1);
-        gpio_put(CS_PIN, 1);
+        gpio_put(ADC_CS_PIN, 1);
 
         if (current_buffer == 0) {
             buffer0[sample_index] = value;

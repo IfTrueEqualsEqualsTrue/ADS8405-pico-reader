@@ -12,7 +12,7 @@
 
 //ADC
 #define CONVST_PIN 19  // GPIO19 - Start ADC conversion (CONVST)
-#define CS_PIN 20  // GPIO20 - ADC Chip Select (CS)
+#define ADC_CS_PIN 20  // GPIO20 - ADC Chip Select (CS)
 #define RD_PIN 21      // GPIO21 - ADC Read Enable (RD)
 #define BUSY_PIN 26    // GPIO26 - ADC Busy Status Input (BUSY)
 
@@ -22,7 +22,7 @@
 #define SPI_PORT spi0
 
 #define PIN_MISO 16    // GPIO16 - SPI MISO (Master In Slave Out)
-#define PIN_SPI_CS 17  // GPIO17 - SPI CS (Chip Select for Pi)
+#define PIN_CS 17  // GPIO17 - SPI CS (Chip Select for Pi)
 #define PIN_SCK 18     // GPIO18 - SPI Clock (SCK)
 #define PIN_MOSI 22    // GPIO22 - SPI MOSI (Master Out Slave In)
 
