@@ -34,6 +34,7 @@ project(my_pico_project C CXX ASM)
 pico_sdk_init()
 
 add_subdirectory(src/pico_spi_master)
+add_subdirectory(src/pico_spi_master_dma)
 add_subdirectory(src/adc_read_usb)
 add_subdirectory(src/common)
 
