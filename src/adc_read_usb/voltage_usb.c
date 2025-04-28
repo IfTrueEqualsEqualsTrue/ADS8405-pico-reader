@@ -5,10 +5,10 @@
 
 
 int main() {
-    stdio_usb_init();
+    stdio_usb_init(); // Use the usb output as stdout 
 
     sleep_ms(2000); // 2 sec delay
-    printf("Hello from Pico!\n");
+    printf("Pico is ready !\n");
 
     init_data_bus();
 

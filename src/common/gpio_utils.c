@@ -1,16 +1,6 @@
 #include "gpio_utils.h"
 #include "pico/stdlib.h"
 
-#define DB_MIN 0
-#define DB_MAX 15
-
-#define READ_DELAY_US 1
-
-#define CS_PIN 26
-#define RD_PIN 27
-#define BUSY_PIN 31
-#define CONVST_PIN 30
-
 void init_data_bus(void) {
     for (int i = DB_MIN; i <= DB_MAX; i++) {
         gpio_init(i);
