@@ -10,6 +10,7 @@ void init_data_bus(void) {
     for (int i = DB_MIN; i <= DB_MAX; i++) {
         gpio_init(i);
         gpio_set_dir(i, GPIO_IN);
+        gpio_pull_down(i);
     }
 }
 
@@ -51,15 +52,13 @@ void spi_init_master(void) {
 }
 
 void dma_init_for_spi(void) {
-    static int dma_chan = -1;
-    static dma_channel_config dma_cfg;
-
     dma_chan = dma_claim_unused_channel(true);
     dma_cfg = dma_channel_get_default_config(dma_chan);
 
-    channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_8);
+    channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_16);
     channel_config_set_read_increment(&dma_cfg, true);
     channel_config_set_write_increment(&dma_cfg, false);
     channel_config_set_dreq(&dma_cfg, spi_get_dreq(SPI_PORT, true));
 }
+
 

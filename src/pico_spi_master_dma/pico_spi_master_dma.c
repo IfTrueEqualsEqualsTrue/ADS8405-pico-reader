@@ -19,15 +19,20 @@ extern int dma_chan;
 extern dma_channel_config dma_cfg;
 
 void send_buffer_dma(uint16_t* buffer) {
+    gpio_put(PIN_CS, 0); 
+
     dma_channel_configure(
         dma_chan,
         &dma_cfg,
         &spi_get_hw(SPI_PORT)->dr,
-        (uint8_t*)buffer,
-        BUFFER_SIZE * sizeof(uint16_t),
+        buffer,
+        BUFFER_SIZE,
         true
     );
+
     dma_channel_wait_for_finish_blocking(dma_chan);
+    
+    gpio_put(PIN_CS, 1);
 }
 
 void acquisition_loop(void) {
