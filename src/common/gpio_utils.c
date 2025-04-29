@@ -43,7 +43,7 @@ float get_voltage(void) {
 }
 
 void spi_init_master(void) {
-    spi_init(SPI_PORT, 1000 * 1000); // 1 MHz
+    spi_init(SPI_PORT, 1 * 1000 * 1000); // 1 MHz
     gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
     gpio_set_function(PIN_CS, GPIO_FUNC_SPI);
     gpio_set_function(PIN_SCK, GPIO_FUNC_SPI);
